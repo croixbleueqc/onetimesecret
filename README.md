@@ -58,6 +58,15 @@ When you send people sensitive info like passwords and private links via email o
   chmod -R o-rwx /etc/onetime /var/lib/onetime
 ```
 
+## Docker image
+```
+
+docker build -t onetimesecret -f devops/Dockerfile .
+
+docker run -p "7143:7143" onetimesecret
+
+```
+
 ### About git cloning
 
 The instructions above suggest cloning via the `https` URI. You can also clone using the SSH URI if you have a github account (which is generally more convenient, but specific to github).

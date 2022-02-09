@@ -10,7 +10,7 @@ RUN DEBIAN_FRONTEND=noninteractive \
     ruby redis \
   && rm -rf /var/lib/apt/lists/*
 
-# Download OTS from github
+# Clone directory OTS from github
 RUN set -ex && \
   mkdir -p /etc/onetime /var/log/onetime /var/run/onetime /var/lib/onetime && \
   mkdir /gittmp && \
@@ -24,13 +24,13 @@ RUN cd /var/lib/onetime && \
   bundle install && \
   cp -R etc/* /etc/onetime/
 
-# Add config and entrypoint
-ADD config.example /etc/onetime/config
-ADD entrypoint.sh /usr/bin/
+# Copy config and entrypoint
+RUN cp /gittmp/onetimesecret/devops/config.example /etc/onetime/config
+RUN cp /gittmp/onetimesecret/devops/entrypoint.sh /usr/bin/
 
 VOLUME /etc/onetime /var/run/redis
 
 EXPOSE 7143/tcp
 
-# RUN ["chmod", "+x", "/usr/bin/entrypoint.sh"]
+RUN ["chmod", "+x", "/usr/bin/entrypoint.sh"]
 ENTRYPOINT /usr/bin/entrypoint.sh
