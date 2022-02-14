@@ -60,12 +60,16 @@ When you send people sensitive info like passwords and private links via email o
 
 ## Docker image
 ```
-
 docker build -t onetimesecret -f devops/Dockerfile .
 
-docker run -p "7143:7143" onetimesecret
+export OTS_HOST='localhost'
 
+docker run -p "7143:7143" -e OTS_HOST=$OTS_HOST -i -t onetimesecret /bin/bash
 ```
+
+## Helm deploy
+
+helm template onetimesecret --create-namespace onetimesecret . -n onetimesecret
 
 ### About git cloning
 
