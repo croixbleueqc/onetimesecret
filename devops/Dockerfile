@@ -10,21 +10,31 @@ RUN DEBIAN_FRONTEND=noninteractive \
     ruby redis \
   && rm -rf /var/lib/apt/lists/*
 
-# Clone directory OTS from github
-# RUN set -ex && \
-#   mkdir -p /etc/onetime /var/log/onetime /var/run/onetime /var/lib/onetime && \
-#   mkdir /gittmp && \
-#   cd /gittmp && \
-#   git clone https://github.com/croixbleueqc/onetimesecret.git && \
+# Debug locally
+# RUN mkdir /etc/onetime /var/log/onetime /var/run/onetime /var/lib/onetime && \
+#   mkdir /gittmp
+
+# COPY . /gittmp/onetimesecret
+
+# RUN cd /gittmp && \
 #   cp -rp /gittmp/onetimesecret/* /var/lib/onetime/ && \
 #   rm -r /gittmp
 
-# Download OTS from github release tag
+# Clone directory OTS from github
 RUN set -ex && \
   mkdir -p /etc/onetime /var/log/onetime /var/run/onetime /var/lib/onetime && \
-  wget https://github.com/croixbleueqc/onetimesecret/archive/refs/tags/v0.12.tar.gz -O /tmp/ots.tar.gz && \
-  tar xzf /tmp/ots.tar.gz -C /var/lib/onetime --strip-components=1 && \
-  rm /tmp/ots.tar.gz
+  mkdir /gittmp && \
+  cd /gittmp && \
+  git clone https://github.com/croixbleueqc/onetimesecret.git && \
+  cp -rp /gittmp/onetimesecret/* /var/lib/onetime/ && \
+  rm -r /gittmp
+
+# Download OTS from github release tag
+# RUN set -ex && \
+#   mkdir -p /etc/onetime /var/log/onetime /var/run/onetime /var/lib/onetime && \
+#   wget https://github.com/croixbleueqc/onetimesecret/archive/refs/tags/v0.12.tar.gz -O /tmp/ots.tar.gz && \
+#   tar xzf /tmp/ots.tar.gz -C /var/lib/onetime --strip-components=1 && \
+#   rm /tmp/ots.tar.gz
 
 # Install OTS
 RUN cd /var/lib/onetime && \
