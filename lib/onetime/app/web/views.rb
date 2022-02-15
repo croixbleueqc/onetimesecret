@@ -39,7 +39,8 @@ module Onetime
         self[:ot_version_id] = self[:ot_version].gibbler.short
         self[:authenticated] = sess.authenticated? if sess
         self[:display_promo] = false
-        self[:display_feedback] = true
+        self[:display_feedback] = false
+        self[:anonymous_only] = true
         self[:colonel] = cust.role?(:colonel) if cust
         self[:feedback_text] = OT.conf[:text][:feedback]
         self[:nonpaid_recipient_text] = OT.conf[:text][:nonpaid_recipient_text]
@@ -52,7 +53,7 @@ module Onetime
         self[:jsvars] << jsvar(:shrimp, sess.add_shrimp) if sess
         self[:jsvars] << jsvar(:custid, cust.custid)
         self[:jsvars] << jsvar(:email, cust.email)
-        self[:display_links] = true
+        self[:display_links] = false
         self[:display_options] = true# sess.authenticated?
         self[:display_recipients] = sess.authenticated?
         self[:display_masthead] = true
@@ -76,7 +77,7 @@ module Onetime
         else
           self[:subtitle] = "One Time"
           self[:display_faq] = true
-          self[:display_icons] = true
+          self[:display_icons] = false
           self[:display_otslogo] = true
           self[:actionable_visitor] = true
           # NOTE: uncomment the following line to show the broadcast
@@ -197,9 +198,9 @@ module Onetime
               end
             end
             @expiration_options.push *[
-              { :value => 7.days, :name => "7 days", :default => true},
+              { :value => 7.days, :name => "7 days"},
               { :value => 3.days, :name => "3 days"},
-              { :value => 1.day, :name => "1 day"},
+              { :value => 1.day, :name => "1 day", :default => true},
               { :value => 12.hours, :name => "12 hours"},
               { :value => 4.hours, :name => "4 hours"},
               { :value => 1.hour, :name => "1 hour"},
