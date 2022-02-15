@@ -60,11 +60,9 @@ When you send people sensitive info like passwords and private links via email o
 
 ## Docker image
 ```
-docker build -t onetimesecret -f devops/Dockerfile .
+docker build -t croixbleueqc/ots -f devops/Dockerfile .
 
-export OTS_HOST='localhost'
-
-docker run -p "7143:7143" -e OTS_HOST=$OTS_HOST -i -t onetimesecret /bin/bash
+docker run -p "7143:7143" -it croixbleueqc/ots
 ```
 
 ## Helm deploy
