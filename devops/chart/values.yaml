@@ -3,6 +3,8 @@
 # Declare variables to be passed into your templates.
 app:
   name: onetimesecret
+  
+otsHost: ""
 
 image:
   repository: croixbleueqc/ots
