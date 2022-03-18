@@ -5,7 +5,6 @@ RUN DEBIAN_FRONTEND=noninteractive \
   apt-get update && \
   apt-get install -y \
     build-essential \
-    redis-server \
   && rm -rf /var/lib/apt/lists/*
 
 # Get code from local
@@ -37,15 +36,12 @@ RUN cd /var/lib/onetime && \
   bundle install && \
   cp -R etc/* /etc/onetime/
 
-# Copy config and entrypoint
-RUN cp /var/lib/onetime/devops/config.example /etc/onetime/config
-RUN cp /var/lib/onetime/devops/entrypoint.sh /usr/bin/
-
-VOLUME /etc/onetime /var/run/redis
+RUN rm /etc/onetime/config && ln -s /mnt/config/ots.config /etc/onetime/config
 
 ENV RACK_ENV=prod
 
 EXPOSE 7143/tcp
 
-RUN ["chmod", "+x", "/usr/bin/entrypoint.sh"]
-ENTRYPOINT /usr/bin/entrypoint.sh
+WORKDIR /var/lib/onetime
+# bundle exec thin -e prod -R config.ru -p 7143 start
+ENTRYPOINT ["bundle", "exec", "thin", "-e", "prod", "-R", "config.ru", "-p", "7143", "start"]
