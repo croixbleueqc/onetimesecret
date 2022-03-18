@@ -1,0 +1,79 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "chart.name" . }}-config
+data:
+  ots.config: |
+    :site:
+      :host: {{ .Values.ots.site.host }}
+      :domain: {{ .Values.ots.site.domain }}
+      :ssl: {{ .Values.ots.site.ssl }}
+      
+      {{- if .Values.ots.site.secret }}
+      :secret: {{ .Values.ots.site.secret }}
+      {{- else }}
+      {{/* we cannot use the helper here (ie, we cannot use: include "ots.secret" .) because that helper can use a random value (on first install).
+           So using the include here and in secret.yaml would result in two different random values */}}
+      :secret: OTS_SECRET_REPLACED_AT_RUNTIME
+      {{- end }}
+    :redis:
+      :uri: {{ .Values.ots.redis.uri }}
+    :colonels:
+      {{- range .Values.ots.colonels }}
+      - {{ . }}
+      {{- end }}
+    :emailer:
+      :mode: {{ .Values.ots.emailer.mode }}
+      :from: {{ .Values.ots.emailer.from }}
+      {{- if eq .Values.ots.emailer.mode ":sendgrid" }}
+      :account: {{ .Values.ots.emailer.account }}
+      :password: {{ .Values.ots.emailer.password }}
+      :fromname: {{ .Values.ots.emailer.fromname }}
+      :bcc: {{ .Values.ots.emailer.bcc }}
+      {{- else if eq .Values.ots.emailer.mode ":smtp" }}
+      :host: {{ .Values.ots.emailer.host }}
+      :port: {{ .Values.ots.emailer.port }}
+      :tls: {{ .Values.ots.emailer.tls }}
+      :user: {{ .Values.ots.emailer.user }}
+      :pass: {{ .Values.ots.emailer.pass }}
+      :auth: {{ .Values.ots.emailer.auth }}
+      {{- else }}
+      {{ toYaml .Values.ots.emailer.custom | indent 6 }}
+      {{- end }}
+    :incoming:
+      :enabled: {{ .Values.ots.incoming.enabled }}
+      :email: {{ .Values.ots.incoming.email }}
+      :passphrase: {{ .Values.ots.incoming.passphrase }}
+      :regex: {{ .Values.ots.incoming.regex }}
+    :locales:
+    {{- range .Values.ots.locales }}
+    - {{ . }}
+    {{- end }}
+    :unsupported_locales:
+    {{- range .Values.ots.unsupported_locales }}
+    - {{ . }}
+    {{- end }}
+    :stathat:
+      :enabled: {{ .Values.ots.stathat.enabled }}
+      :apikey: {{ .Values.ots.stathat.apikey }}
+      :default_chart: {{ .Values.ots.stathat.default_chart }}
+    :text:
+      :nonpaid_recipient_text: {{ .Values.ots.text.nonpaid_recipient_text }}
+      :paid_recipient_text: {{ .Values.ots.text.paid_recipient_text }}
+    :limits:
+      :create_secret: {{ .Values.ots.limits.create_secret }}
+      :create_account: {{ .Values.ots.limits.create_account }}
+      :update_account: {{ .Values.ots.limits.update_account }}
+      :email_recipient: {{ .Values.ots.limits.email_recipient }}
+      :send_feedback: {{ .Values.ots.limits.send_feedback }}
+      :authenticate_session: {{ .Values.ots.limits.authenticate_session }}
+      :homepage: {{ .Values.ots.limits.homepage }}
+      :dashboard: {{ .Values.ots.limits.dashboard }}
+      :failed_passphrase: {{ .Values.ots.limits.failed_passphrase }}
+      :show_metadata: {{ .Values.ots.limits.show_metadata }}
+      :show_secret: {{ .Values.ots.limits.show_secret }}
+      :burn_secret: {{ .Values.ots.limits.burn_secret }}
+    {{ if .Values.ots.split_tests }}
+    :split_tests:
+      {{ toYaml .Values.ots.split_tests | indent 6 }}
+    {{- end }}

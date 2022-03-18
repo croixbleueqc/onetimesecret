@@ -1,3 +1,6 @@
+# This file is provided as a sample configuration. The Docker image expects a config file to be mounted at /mnt/config/ots.config
+
+
 :site:
   :host: <%= ENV['ONETIMESECRET_HOST'] || 'localhost:7143' %>
   :domain: localhost
