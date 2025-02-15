@@ -55,7 +55,7 @@ gem 'byebug-dap', require: false, group: :development
 gem 'pry', require: false, group: :development
 gem 'pry-byebug', require: false, group: :development
 gem 'rubocop', '>= 1.65.0', require: false, group: :development
-gem 'rubocop-performance', require: false, group: :development
+gem 'rubocop-performance', '>= 1.24.0', require: false, group: :development
 gem 'rubocop-thread_safety', require: false, group: :development
 #gem "sentry-ruby", require: false, group: :development
 gem 'sorbet', require: false, group: :development
