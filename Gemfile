@@ -22,7 +22,7 @@ gem 'truemail'
 
 gem 'addressable'
 
-gem 'rack'
+gem 'rack', '>= 2.2.12'
 
 gem 'multi_json'
 gem 'thin'
