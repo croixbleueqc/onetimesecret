@@ -25,7 +25,7 @@ gem 'addressable'
 gem 'rack'
 
 gem 'multi_json'
-gem 'thin'
+gem 'thin', '>= 2.0.0'
 gem 'yajl-ruby'
 
 gem 'mustache'
