@@ -60,7 +60,7 @@ gem 'rubocop-thread_safety', require: false, group: :development
 #gem "sentry-ruby", require: false, group: :development
 gem 'sorbet', require: false, group: :development
 gem 'sorbet-runtime'
-gem 'spoom', require: false, group: :development
+gem 'spoom', '>= 1.3.3', require: false, group: :development
 gem 'stackprof', require: false, group: :development # bundle exec stackprof --text tmp/rubocop-stackprof.dump
-gem 'tapioca', require: false, group: :development
+gem 'tapioca', '>= 0.14.4', require: false, group: :development
 gem 'tryouts', require: false, group: :development
