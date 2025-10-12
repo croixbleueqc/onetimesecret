@@ -22,10 +22,10 @@ gem 'truemail'
 
 gem 'addressable'
 
-gem 'rack'
+gem 'rack', '>= 2.2.20'
 
 gem 'multi_json'
-gem 'thin'
+gem 'thin', '>= 2.0.0'
 gem 'yajl-ruby'
 
 gem 'mustache'
@@ -33,7 +33,7 @@ gem 'mustache'
 gem 'drydock'
 gem 'familia', '~> 0.10.2'
 gem 'gibbler'
-gem 'otto', '~> 1.0.2'
+gem 'otto', '~> 1.2.0'
 gem 'redis', '~> 5.2.0'
 gem 'storable'
 gem 'sysinfo'
