@@ -45,7 +45,7 @@ gem 'encryptor', '= 1.1.3'
 gem 'httparty'
 gem 'sendgrid-ruby'
 
-gem 'mail'
+gem 'mail', '>= 2.9.0'
 
 # Adding sentry-ruby to production build since it is required
 gem "sentry-ruby"
