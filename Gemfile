@@ -42,7 +42,7 @@ gem 'uri-redis', '~> 1.3.0'
 gem 'bcrypt'
 gem 'encryptor', '= 1.1.3'
 
-gem 'httparty'
+gem 'httparty', '>= 0.24.0'
 gem 'sendgrid-ruby'
 
 gem 'mail'
